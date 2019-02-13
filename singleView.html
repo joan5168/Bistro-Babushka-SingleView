@@ -15,12 +15,12 @@
     #singleview {
         width: 100vw;
         height: 100vh;
-        background-color: red;
+        background-color: #293b29;
     }
 
     #indhold {
         box-sizing: border-box;
-        background-color: lightgray;
+        background-color: rgb(240, 229, 190);
         width: 90vw;
         height: 90vh;
         margin: auto;
@@ -34,6 +34,8 @@
 
     #tilbage button {
         font-size: 2em;
+        border-radius: 4px;
+        margin: 10px;
     }
 
 </style>
@@ -49,7 +51,7 @@
 
     <script>
         let urlParams = new URLSearchParams(window.location.search);
-        let navn = urlParams.get("navn");
+        let id = urlParams.get("id");
         let kategori;
         let kategoriListe = [];
         document.addEventListener("DOMContentLoaded", start);
@@ -59,7 +61,7 @@
                 let jsonData = await fetch("https://mandalskeawebspace.dk/claude_php/clean_up_spreadsheet.php?id=1jxxxFoWBuMJ1qhQ9BQIAyKHmP38XtAF9_sQr0xo5JLo");
                 kategoriListe = await jsonData.json();
                 kategoriListe.forEach(obj => {
-                    if (obj.navn == navn) {
+                    if (obj.id == id) {
                         kategori = obj;
                     }
                 })
@@ -68,7 +70,7 @@
 
             function åben() {
                 document.querySelector("#indhold").innerHTML = `
-                                <div class="singleview">
+                                <article class="kategori">
                                     <h2>${kategorier.navn}</h2>
                                         <img src="imgs/large/${kategorier.billede}.jpg" alt="${kategorier.navn}">
                                         <p>Kategori: ${kategorier.kategori}</p>
@@ -76,7 +78,7 @@
                                         <p>Kort: ${kategorier.kort}</p>
                                         <p>Lang: ${kategorier.lang}</p>
                                         <p>Oprindelse: ${kategorier.oprindelse}</p>
-                                 </div>
+                                 </article>
                 `
             }
             document.querySelector("#tilbage button").addEventListener("click", () => {
