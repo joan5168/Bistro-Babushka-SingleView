@@ -22,7 +22,7 @@
         box-sizing: border-box;
         background-color: rgb(240, 229, 190);
         width: 90vw;
-        height: 90vh;
+        height: 85vh;
         margin: auto;
     }
 
@@ -36,6 +36,25 @@
         font-size: 2em;
         border-radius: 4px;
         margin: 10px;
+    }
+
+    /*    styling single view*/
+
+    .kategori {
+        text-align: center;
+        font-size: 18px;
+        font-family: helvetica;
+        color: rgb(93, 84, 53);
+    }
+
+    .kategori h2 {
+        color: rgb(170, 139, 33);
+        margin: 10px;
+        padding: 5px;
+    }
+
+    .kategori img {
+        width: 600px;
     }
 
 </style>
@@ -71,13 +90,13 @@
             function åben() {
                 document.querySelector("#indhold").innerHTML = `
                                 <article class="kategori">
-                                    <h2>${kategorier.navn}</h2>
-                                        <img src="imgs/large/${kategorier.billede}.jpg" alt="${kategorier.navn}">
-                                        <p>Kategori: ${kategorier.kategori}</p>
-                                        <p>Pris: ${kategorier.pris} kr.</p>
-                                        <p>Kort: ${kategorier.kort}</p>
-                                        <p>Lang: ${kategorier.lang}</p>
-                                        <p>Oprindelse: ${kategorier.oprindelse}</p>
+                                    <h2>${kategori.navn}</h2>
+                                        <img src="imgs/large/${kategori.billede}.jpg" alt="${kategori.navn}">
+                                        <p>Kategori: ${kategori.kategori}</p>
+                                        <br>
+                                        <p>${kategori.lang}</p>
+                                        <p>Oprindelse: ${kategori.oprindelse}</p>
+                                        <p>Pris: ${kategori.pris} kr.</p
                                  </article>
                 `
             }
