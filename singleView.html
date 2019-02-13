@@ -48,7 +48,7 @@
 
     <script>
         let urlParams = new URLSearchParams(window.location.search);
-        let github = urlParams.get("github");
+        let navn = urlParams.get("navn");
         let kateogri;
         let kategoriListe = [];
         document.addEventListener("DOMContentLoaded", start);
@@ -58,7 +58,7 @@
                 let jsonData = await fetch("https://mandalskeawebspace.dk/claude_php/clean_up_spreadsheet.php?id=1jxxxFoWBuMJ1qhQ9BQIAyKHmP38XtAF9_sQr0xo5JLo");
                 kategoriListe = await jsonData.json();
                 kategoriListe.forEach(obj => {
-                    if (obj.kort == kort) {
+                    if (obj.navn == navn) {
                         kateogri = obj;
                     }
 
@@ -68,7 +68,7 @@
 
             function åben() {
                 document.querySelector("#indhold").innerHTML = `
-                     <div class="popup">
+                     <div class="singleview">
                                     <h2>${kategorier.navn}</h2>
                                         <img src="imgs/large/${kategorier.billede}.jpg" alt="${kategorier.navn}">
                                         <p>Kategori: ${kategorier.kategori}</p>
@@ -80,7 +80,7 @@
                 `
             }
             document.querySelector("#tilbage button").addEventListener("click", () => {
-                location.href = "indeks.html"
+                location.href = "indeksSingleview.html"
             })
             getJson();
         }

@@ -65,51 +65,6 @@
         margin: 10px;
     }
 
-    /*
-popup styling
-*/
-    #indhold {
-        box-sizing: border-box;
-        background-color: rgb(240, 229, 190);
-        width: 59vw;
-        height: 62vh;
-        margin: auto;
-        margin-top: 0px;
-        align-content: center;
-    }
-
-    #popup {
-        width: 60vw;
-        height: 72vh;
-        position: fixed;
-        background-color: rgba(0, 0, 0, 0.54);
-        display: none;
-        margin-left: 280px;
-        text-align: center;
-    }
-
-    #popup img {
-        max-width: 300px;
-    }
-
-    #popup p {
-        font-size: 13px;
-    }
-
-    /*
-knap til popup
-*/
-    #luk {
-        box-sizing: border-box;
-        text-align: right;
-        padding-right: 1em;
-    }
-
-    #luk button {
-        margin-top: 10px;
-        font-size: 1.5em;
-        border-radius: 4px;
-    }
 </style>
 
 <body>
@@ -127,12 +82,6 @@ knap til popup
         </nav>
     </header>
 
-    <section>
-        <div id="popup">
-            <div id="luk"><button>X</button></div>
-            <div id="indhold"></div>
-        </div>
-    </section>
 
     <section>
         <div id="liste"></div>
@@ -145,7 +94,6 @@ knap til popup
 
         function start() {
             let dest = document.querySelector("#liste");
-            let temp = document.querySelector("template");
             async function getJson() {
                 let jsonData = await fetch("https://mandalskeawebspace.dk/claude_php/clean_up_spreadsheet.php?id=1jxxxFoWBuMJ1qhQ9BQIAyKHmP38XtAF9_sQr0xo5JLo");
                 kategoriListe = await jsonData.json();
@@ -172,29 +120,15 @@ knap til popup
                                 </div>
                             `;
                         dest.insertAdjacentHTML("beforeend", template);
-                        dest.lastElementChild.addEventListener("click", åben);
+                        dest.lastElementChild.addEventListener("click", () => {
+                            location.href = "singleView.html?navn=" + kategorier.navn;
+                        });
 
-                        function åben() {
-                            document.querySelector("#indhold").innerHTML = `
-                                <div class="popup">
-                                    <h2>${kategorier.navn}</h2>
-                                        <img src="imgs/large/${kategorier.billede}.jpg" alt="${kategorier.navn}">
-                                        <p>Kategori: ${kategorier.kategori}</p>
-                                        <p>Pris: ${kategorier.pris} kr.</p>
-                                        <p>Kort: ${kategorier.kort}</p>
-                                        <p>Lang: ${kategorier.lang}</p>
-                                        <p>Oprindelse: ${kategorier.oprindelse}</p>
-                                 </div>
-                                        `;
-                            document.querySelector("#popup").style.display = "block";
-                        }
                     }
                 });
             }
 
-            document.querySelector("#luk button").addEventListener("click", () => {
-                document.querySelector("#popup").style.display = "none";
-            })
+
 
             document.querySelectorAll(".filter").forEach(elm => {
                 elm.addEventListener("click", filtrering);
@@ -213,6 +147,7 @@ knap til popup
             }
             getJson();
         }
+
     </script>
 </body>
 
